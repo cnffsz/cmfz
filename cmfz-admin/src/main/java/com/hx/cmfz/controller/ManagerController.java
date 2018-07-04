@@ -12,6 +12,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * Created by Administrator on 2018/7/4.
@@ -28,13 +29,13 @@ public class ManagerController {
             Manager m = managerService.queryMgr(name, password);
             if(m != null){
                 if(checkbox != null){
-                    name = java.net.URLEncoder.encode(name, "UTF-8");
-                    Cookie c1 = new Cookie("username",name);
+                    name = URLEncoder.encode(name, "UTF-8");
+                    Cookie c1 = new Cookie("name",name);
                     Cookie c2 = new Cookie("password",password);
                     c1.setMaxAge(60*60*24);
                     c2.setMaxAge(60*60*24);
-                    c1.setPath("/EMS");
-                    c2.setPath("/EMS");
+                    c1.setPath("/");
+                    c2.setPath("/");
                     response.addCookie(c1);
                     response.addCookie(c2);
                 }

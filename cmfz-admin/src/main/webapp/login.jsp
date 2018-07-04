@@ -10,14 +10,19 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/script/common.js"></script>
     <script type="text/javascript">
 
+        function run () {
+            var str = "${cookie.name.value}";
+            var newStr = decodeURI(str);
+            document.getElementById("name").value=newStr;
+
+        }
 
     </script>
 </head>
-<body>
+<body onload="run()">
 
 <div class="login">
-    <form id="loginForm" action="/login.do" method="post">
-
+    <form id="loginForm" action="${pageContext.request.contextPath}/login.do" method="post">
         <table>
             <tbody>
             <tr>
@@ -28,7 +33,7 @@
                     用户名:
                 </th>
                 <td>
-                    <input type="text" name="name" class="text" value="xxx" maxlength="20"/>
+                    <input id="name" type="text" name="name" class="text" maxlength="20"/>
                 </td>
             </tr>
             <tr>
@@ -36,7 +41,7 @@
                     密&nbsp;&nbsp;&nbsp;码:
                 </th>
                 <td>
-                    <input type="password" name="password" class="text" value="x" maxlength="20" autocomplete="off"/>
+                    <input type="password" name="password" class="text" maxlength="20" autocomplete="off"/>
                 </td>
             </tr>
 
@@ -45,7 +50,7 @@
                 <th>验证码:</th>
                 <td>
                     <input type="text" id="enCode" name="code" class="text captcha" maxlength="4" autocomplete="off"/>
-                    <img id="captchaImage" class="captchaImage" onclick="document.getElementById('captchaImage').src='vcode?time-'+(new Date()).getTime();" src="/vcode.do" title="点击更换验证码"/>
+                    <img id="captchaImage" class="captchaImage" onclick="document.getElementById('captchaImage').src='vcode.do?time-'+(new Date()).getTime();" src="${pageContext.request.contextPath}/vcode.do" title="点击更换验证码"/>
                 </td>
             </tr>
             <tr>
@@ -57,7 +62,7 @@
                 </th>
                 <td>
                     <label>
-                        <input type="checkbox" id="isRememberUsername" name="checkbox" value="false"/> 记住用户名
+                        <input type="checkbox" id="isRememberUsername" name="checkbox" checked="checked"/> 记住用户名
                     </label>
                 </td>
             </tr>
