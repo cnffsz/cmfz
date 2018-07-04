@@ -48,7 +48,7 @@ public class ManagerController {
 
     @RequestMapping("/vcode")
     public void vcode(HttpSession session, HttpServletResponse response) throws Exception{
-        ValidateCodeUtils vCode = new ValidateCodeUtils(100, 30, 4, 10);
+        ValidateCodeUtils vCode = new ValidateCodeUtils(100, 30, 1, 10);
         session.setAttribute("vcode", vCode.getCode());
         vCode.write(response.getOutputStream());
     }

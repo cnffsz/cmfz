@@ -10,16 +10,34 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/script/common.js"></script>
     <script type="text/javascript">
 
-        function run () {
+        $(function () {
             var str = "${cookie.name.value}";
             var newStr = decodeURI(str);
-            document.getElementById("name").value=newStr;
+            $("#name").val(newStr);
 
-        }
+            $("#loginForm").bind("submit",function(){
+                var name=$("#name").val();
+                var pwd=$("#password").val();
+                var code=$("#enCode").val();
+                if(name==""){
+                    alert("用户名不能为空！");
+                }
+                if(pwd==""){
+                    alert("密码不能为空！");
+                }
+                if(code==""){
+                    alert("验证码不能为空！");
+                }
+                if(name!=""&&pwd!=""&&code!=""){
+                    return true;
+                }
+                return false;
+            });
+        });
 
     </script>
 </head>
-<body onload="run()">
+<body>
 
 <div class="login">
     <form id="loginForm" action="${pageContext.request.contextPath}/login.do" method="post">
@@ -41,7 +59,7 @@
                     密&nbsp;&nbsp;&nbsp;码:
                 </th>
                 <td>
-                    <input type="password" name="password" class="text" maxlength="20" autocomplete="off"/>
+                    <input id="password" type="password" name="password" class="text" maxlength="20" autocomplete="off"/>
                 </td>
             </tr>
 

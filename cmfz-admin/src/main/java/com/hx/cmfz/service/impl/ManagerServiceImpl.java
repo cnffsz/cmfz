@@ -3,6 +3,7 @@ package com.hx.cmfz.service.impl;
 import com.hx.cmfz.dao.ManagerDao;
 import com.hx.cmfz.entity.Manager;
 import com.hx.cmfz.service.ManagerService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,8 @@ public class ManagerServiceImpl implements ManagerService {
         Manager manager = managerDao.selectMgr(name);
 
         if(manager != null){
-            if(manager.getMgrPwd().equals(password))
+            String newPwd = DigestUtils.md5Hex(password+manager.getSalt());
+            if(manager.getMgrPwd().equals(newPwd))
                 return manager;
         }
 
