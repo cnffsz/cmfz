@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.hx.cmfz.dao.MenuDao">
+
+    <resultMap type="Menu" id="MenuResultMap">
+        <id property="id" column="id"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuCode" column="menu_code"/>
+        <result property="menuIcon" column="menu_icon"/>
+        <result property="menuUrl" column="menu_url"/>
+        <result property="menuLevel" column="menu_level"/>
+        <result property="parentId" column="menu_parent_id"/>
+    </resultMap>
+
+    <select id="selectByLevel" resultMap="MenuResultMap">
+        select * from menu where menu_level = #{level}
+    </select>
+
+    <select id="selectByParentId" resultMap="MenuResultMap">
+        select * from menu where menu_parent_id = #{parentId}
+    </select>
+
+</mapper>

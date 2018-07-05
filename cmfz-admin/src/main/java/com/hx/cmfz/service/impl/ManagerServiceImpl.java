@@ -6,6 +6,7 @@ import com.hx.cmfz.service.ManagerService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -21,7 +22,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Autowired
     private ManagerDao managerDao;
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,propagation = Propagation.SUPPORTS)
     @Override
     public Manager queryMgr(String name, String password) {
 
