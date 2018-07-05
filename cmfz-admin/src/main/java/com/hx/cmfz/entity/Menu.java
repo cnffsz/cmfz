@@ -1,9 +1,11 @@
 package com.hx.cmfz.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2018/7/5.
  */
-public class Menu {
+public class Menu implements Serializable {
 
     private int id;
     private String menuName;

@@ -8,7 +8,8 @@
 <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">   
 <link rel="stylesheet" type="text/css" href="../themes/IconExtension.css">   
 <script type="text/javascript" src="../js/jquery.min.js"></script>   
-<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>  
+<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../js/datagrid-detailview.js"></script>
 <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
     $(function() {
@@ -19,7 +20,7 @@
 			data:"parentId="+0,
             url: '/admin/findMenu.do',//获取菜单
             success: function(data) {
-                $.each(data, function(index, value) { //加载父类节点即一级菜单
+                $.each(data, function(index, value) {
 					$('#aa').accordion('add', {
 						title: data[index].menuName,
 						iconCls: data[index].menuIcon,
@@ -39,7 +40,7 @@
                                 var pp = $('#aa').accordion('getSelected');
                                 pp.empty();
                                 $.each(data2, function(index, value) {
-                                    pp.css("text-align","center").append('<a class="easyui-linkbutton" data-options="iconCls:\''+data2[index].menuIcon+'\',plain:true" onclick="addTab(\''+data2[index].menuName+'\')" >'+data2[index].menuName+'</a><br/>');
+                                    pp.css("text-align","center").append('<a class="easyui-linkbutton" data-options="iconCls:\''+data2[index].menuIcon+'\',plain:true" onclick="addTab(\''+data2[index].menuName+'\',\''+data2[index].menuUrl+'\')" >'+data2[index].menuName+'</a><br/>');
                                 });
                             }
                         });
@@ -49,13 +50,13 @@
             }
     	});
     });
-    function addTab(menuName) {
+    function addTab(menuName,menuUrl) {
         var flag = $("#tt").tabs("exists",menuName);
         if(!flag){
             $("#tt").tabs("add",{
                 title: menuName,
                 closable:true,
-                href:"/admin/login.jsp"
+                href:"/admin/main/"+menuUrl
             });
         }else{
             $("#tt").tabs("select",menuName);
