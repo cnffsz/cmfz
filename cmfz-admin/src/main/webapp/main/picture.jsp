@@ -7,7 +7,7 @@
             columns : [ [ {
                 title : "标识编号",
                 field : "pictureId",
-                width:400,
+                width:500,
                 align:'center'
             }, {
                 title : "文件名",
@@ -22,13 +22,17 @@
             }, {
                 title : "轮播图状态",
                 field : "pictureStatus",
-                width:300,
+                width:200,
                 align:'center',
                 formatter: function (value, row, index) {
                     if(value==0)
                         return "未展示";
                     else
                         return "展示中";
+                },
+                styler: function(value,row,index){
+                    if (value == 1)
+                        return 'color:red;';
                 }
             }, {
                 title : "轮播图创建时间",
@@ -59,7 +63,7 @@
             view: detailview,
             detailFormatter: function(rowIndex, rowData){
                 return '<table><tr>' +
-                    '<td rowspan=2 style="border:0"><img src="images/' + rowData.picturePath + '" style="height:50px;"></td>' +
+                    '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}/upload/' + rowData.picturePath + '" style="height:200px;"></td>' +
                     '<td style="border:0">' +
                     '</td>' +
                     '</tr></table>';
@@ -84,7 +88,7 @@
                 text:"保存",
                 handler:function(){
                     $("#form").form("submit",{
-                        url:"${pageContext.request.contextPath}/add.do",
+                        url:"${pageContext.request.contextPath}/addPicture.do",
                         onSubmit:function(){
                             return $("#form").form("validate");
                         },
@@ -136,11 +140,11 @@
                 $("#form1").form("load",rowData);
             },
             buttons:[{
-                iconCls:"icon-save",
+                iconCls:"icon-disk",
                 text:"保存",
                 handler:function(){
                     $("#form1").form("submit",{
-                        url:"${pageContext.request.contextPath}/update.do",
+                        url:"${pageContext.request.contextPath}/modifyPicture.do",
                         onSubmit:function(){
                             return $("#form1").form("validate");
                         },

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+	pageEncoding="utf-8" isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,7 +18,7 @@
             async: false,
             dataType: "json",
 			data:"parentId="+0,
-            url: '/admin/findMenu.do',//获取菜单
+            url: '${pageContext.request.contextPath}/findMenu.do',//获取菜单
             success: function(data) {
                 $.each(data, function(index, value) {
 					$('#aa').accordion('add', {
@@ -35,7 +35,7 @@
                             async: false,
                             dataType: "json",
                             data: "parentId=" + data[index].id,
-                            url: '/admin/findMenu.do',//获取菜单
+                            url: '${pageContext.request.contextPath}/findMenu.do',//获取菜单
                             success: function (data2) {
                                 var pp = $('#aa').accordion('getSelected');
                                 pp.empty();
@@ -56,7 +56,7 @@
             $("#tt").tabs("add",{
                 title: menuName,
                 closable:true,
-                href:"/admin/main/"+menuUrl
+                href:"${pageContext.request.contextPath}/main/"+menuUrl
             });
         }else{
             $("#tt").tabs("select",menuName);

@@ -34,4 +34,20 @@ public class PictureServiceImpl implements PictureService {
         map.put("rows",list);
         return map;
     }
+
+    @Override
+    public boolean addPic(Picture picture) {
+        int r = pictureDao.insertPic(picture);
+        if(r>0)
+            return  true;
+        return false;
+    }
+
+    @Override
+    public boolean modifyPic(Picture picture) {
+        int r = pictureDao.updatePic(picture);
+        if(r>0)
+            return  true;
+        return false;
+    }
 }

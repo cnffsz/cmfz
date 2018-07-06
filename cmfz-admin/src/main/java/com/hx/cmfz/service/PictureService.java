@@ -11,4 +11,8 @@ import java.util.Map;
 public interface PictureService {
 
     public Map<String,Object> queryPicByPage(Integer page,Integer pageSize);
+
+    public boolean addPic(Picture picture);
+
+    public boolean modifyPic(Picture picture);
 }
