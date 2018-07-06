@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.hx.cmfz.dao.MasterDao">
+
+    <resultMap type="Master" id="MasterResultMap">
+        <id property="masterId" column="master_id"/>
+        <result property="masterName" column="master_name"/>
+        <result property="masterPhoto" column="master_photo"/>
+        <result property="masterSummary" column="master_summary"/>
+    </resultMap>
+
+    <select id="selectByPage" resultMap="MasterResultMap">
+        select * from master limit #{index},#{pageSize}
+    </select>
+
+    <select id="selectByKey" resultMap="MasterResultMap">
+        select * from master where master_name like #{key} limit #{index},#{pageSize}
+    </select>
+
+    <insert id="insertMaster">
+        insert into master values(#{masterId},#{masterName},#{masterPhoto},#{masterSummary})
+    </insert>
+
+    <update id="updateMaster">
+        update master set master_name=#{masterName},master_summary=#{masterSummary} where master_id=#{masterId}
+    </update>
+
+</mapper>

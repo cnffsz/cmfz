@@ -5,7 +5,7 @@
 		});
 	</script>
 <div style="padding-left: 50px;padding-top: 30px">
-  	<form id="form" method="post" enctype="multipart/form-data">
+  	<form id="form_pic" method="post" enctype="multipart/form-data">
 		轮播图描述:<input class="easyui-textbox" name="pictureDescription" data-options="required:true,width:200"><br>
 		轮播图状态:<select  class="easyui-combobox" name="pictureStatus" data-options="width:200,panelHeight:'auto',panelWidth:200" >
 			<option value="0">未展示</option>

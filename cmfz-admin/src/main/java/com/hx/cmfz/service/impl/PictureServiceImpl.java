@@ -35,6 +35,7 @@ public class PictureServiceImpl implements PictureService {
         return map;
     }
 
+    @Transactional
     @Override
     public boolean addPic(Picture picture) {
         int r = pictureDao.insertPic(picture);
@@ -43,6 +44,7 @@ public class PictureServiceImpl implements PictureService {
         return false;
     }
 
+    @Transactional
     @Override
     public boolean modifyPic(Picture picture) {
         int r = pictureDao.updatePic(picture);

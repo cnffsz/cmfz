@@ -5,7 +5,7 @@
 		});
 	</script>
 <div style="padding-left: 50px;padding-top: 10px">
-  	<form id="form1" method="post">
+  	<form id="form1_pic" method="post">
 		轮播图编号:<input class="easyui-textbox" name="pictureId" data-options="width:220" readonly="readonly"><br>
 		轮播图名称:<input class="easyui-textbox" name="picturePath" data-options="width:220" readonly="readonly"><br>
 		轮播图描述:<input class="easyui-textbox" name="pictureDescription" data-options="required:true,width:220"><br>

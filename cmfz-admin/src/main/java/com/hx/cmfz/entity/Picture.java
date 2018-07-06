@@ -1,6 +1,7 @@
 package com.hx.cmfz.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,6 +14,7 @@ public class Picture implements Serializable {
     private String pictureId;
     private String picturePath;
     @JSONField(format="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date pictureDate;
     private String pictureDescription;
     private int pictureStatus;
