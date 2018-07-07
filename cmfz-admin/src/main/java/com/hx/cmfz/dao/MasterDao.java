@@ -18,4 +18,8 @@ public interface MasterDao {
 
     public List<Master> selectByKey(@Param("key")String key ,@Param("index")Integer index ,@Param("pageSize")Integer pageSize);
 
+    public int count();
+
+    public int countByKey(String key);
+
 }

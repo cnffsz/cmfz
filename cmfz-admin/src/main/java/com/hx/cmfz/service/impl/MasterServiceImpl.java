@@ -26,7 +26,7 @@ public class MasterServiceImpl implements MasterService{
     @Override
     public Map<String, Object> queryByPage(Integer page, Integer pageSize) {
         List<Master> list = masterDao.selectByPage((page-1)*pageSize,pageSize);
-        int count = list.size();
+        int count = masterDao.count();
         Map<String,Object> map = new HashMap<>();
         map.put("total",count);
         map.put("rows",list);
@@ -37,7 +37,7 @@ public class MasterServiceImpl implements MasterService{
     @Override
     public Map<String, Object> queryByKey(String key, Integer page, Integer pageSize) {
         List<Master> list = masterDao.selectByKey("%"+key+"%",(page-1)*pageSize,pageSize);
-        int count = list.size();
+        int count = masterDao.countByKey(key);
         Map<String,Object> map = new HashMap<>();
         map.put("total",count);
         map.put("rows",list);

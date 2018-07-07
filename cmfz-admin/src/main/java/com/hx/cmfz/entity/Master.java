@@ -1,5 +1,7 @@
 package com.hx.cmfz.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+
 import java.io.Serializable;
 
 /**
@@ -7,9 +9,13 @@ import java.io.Serializable;
  */
 public class Master implements Serializable{
 
+    @Excel(name = "上师编号")
     private String masterId;
+    @Excel(name = "上师法号")
     private String masterName;
+    @Excel(name = "上师照片")
     private String masterPhoto;
+    @Excel(name = "上师简介")
     private String masterSummary;
 
     public String getMasterId() {

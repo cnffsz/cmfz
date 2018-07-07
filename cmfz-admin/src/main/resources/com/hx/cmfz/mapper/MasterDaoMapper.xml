@@ -13,8 +13,16 @@
         select * from master limit #{index},#{pageSize}
     </select>
 
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from master
+    </select>
+
     <select id="selectByKey" resultMap="MasterResultMap">
         select * from master where master_name like #{key} limit #{index},#{pageSize}
+    </select>
+
+    <select id="countByKey" resultType="java.lang.Integer">
+        select count(*) from master where master_name like #{key}
     </select>
 
     <insert id="insertMaster">

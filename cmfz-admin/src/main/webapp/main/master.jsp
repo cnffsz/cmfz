@@ -121,6 +121,60 @@
         });
     }
 
+    function addExcel() {
+        $("#d1_master").dialog({
+            width:400,
+            height:200,
+            title:"批量添加",
+            iconCls:"icon-add",
+            collapsible:true,
+            maximizable:true,
+            align:'center',
+            href:"${pageContext.request.contextPath}/main/addForm_excel.jsp",
+            modal:true,
+            shadow:true,
+            buttons:[{
+                iconCls:"icon-disk",
+                text:"保存",
+                handler:function(){
+                    $("#form_master").form("submit",{
+                        url:"${pageContext.request.contextPath}/importExcel.do",
+                        onSubmit:function(){
+                            return $("#form_master").form("validate");
+                        },
+                        success:function(r){
+                            if(r=="success"){
+                                $("#datagrid_master").datagrid({
+                                    url : "${pageContext.request.contextPath}/findMaster.do"
+                                });
+                                $.messager.show({
+                                    title:"通知",
+                                    msg:"添加成功",
+                                    timeout:3000,
+                                    showType:"slider",
+                                });
+                            }else{
+                                $.messager.show({
+                                    title:"通知",
+                                    msg:"添加失败",
+                                    timeout:3000,
+                                    showType:"slider",
+                                });
+                            }
+                        }
+                    });
+                    $("#d1_master").dialog("close");
+                }
+            },{
+                iconCls:"icon-cancel",
+                text:"取消",
+                handler:function(){
+                    $("#d1_master").dialog("close");
+                }
+            }]
+        });
+    }
+
     function updateMaster() {
         $("#d1_master").dialog({
             width:400,
@@ -183,7 +237,7 @@
 <div id="tool_master">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新增上师'" onclick="addMaster()"></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true,text:'帮助'"></a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-page_add',plain:true,text:'批量添加'" ></a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-page_add',plain:true,text:'批量添加'" onclick="addExcel()"></a>
     <input id="ss"/>
 </div>
 
