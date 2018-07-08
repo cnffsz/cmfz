@@ -44,6 +44,12 @@ public class MasterServiceImpl implements MasterService{
         return map;
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
+    @Override
+    public List<Master> queryAll() {
+        return masterDao.selectAll();
+    }
+
     @Transactional
     @Override
     public boolean addMaster(Master master) {
@@ -52,6 +58,16 @@ public class MasterServiceImpl implements MasterService{
         if(r>0)
             return true;
         return false;
+    }
+
+    @Override
+    public boolean addExcel(List<Master> masters) {
+
+        int r = masterDao.insertExcel(masters);
+        if(r>0)
+            return true;
+        return false;
+
     }
 
     @Transactional

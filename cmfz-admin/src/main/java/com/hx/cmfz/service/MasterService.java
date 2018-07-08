@@ -2,6 +2,7 @@ package com.hx.cmfz.service;
 
 import com.hx.cmfz.entity.Master;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,7 +14,11 @@ public interface MasterService {
 
     public Map<String,Object> queryByKey(String key,Integer page,Integer pageSize);
 
+    public List<Master> queryAll();
+
     public boolean addMaster(Master master);
+
+    public boolean addExcel(List<Master> masters);
 
     public boolean modifyMaster(Master master);
 

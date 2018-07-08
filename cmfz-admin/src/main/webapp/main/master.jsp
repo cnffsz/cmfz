@@ -238,6 +238,7 @@
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新增上师'" onclick="addMaster()"></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true,text:'帮助'"></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-page_add',plain:true,text:'批量添加'" onclick="addExcel()"></a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-download',plain:true,text:'批量导出'" href="${pageContext.request.contextPath}/exportExcel.do"></a>
     <input id="ss"/>
 </div>
 

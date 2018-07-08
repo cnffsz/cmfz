@@ -21,12 +21,23 @@
         select * from master where master_name like #{key} limit #{index},#{pageSize}
     </select>
 
+    <select id="selectAll" resultMap="MasterResultMap">
+        select * from master
+    </select>
+
     <select id="countByKey" resultType="java.lang.Integer">
         select count(*) from master where master_name like #{key}
     </select>
 
     <insert id="insertMaster">
         insert into master values(#{masterId},#{masterName},#{masterPhoto},#{masterSummary})
+    </insert>
+
+    <insert id="insertExcel">
+        insert into master values
+        <foreach collection="list" separator="," item="m">
+            (#{m.masterId},#{m.masterName},#{m.masterPhoto},#{m.masterSummary})
+        </foreach>
     </insert>
 
     <update id="updateMaster">

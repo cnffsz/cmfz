@@ -1,8 +1,12 @@
 package com.hx.cmfz.controller;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.ExcelImportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.ImportParams;
 import com.hx.cmfz.entity.Master;
 import com.hx.cmfz.service.MasterService;
-import com.hx.cmfz.utils.FileUtil;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -86,21 +92,45 @@ public class MasterController {
 
     @RequestMapping("/importExcel")
     @ResponseBody
-    public String importExcel(MultipartFile excel){
+    public String importExcel(MultipartFile excel) throws Exception {
 
-        List<Master> masterList = FileUtil.importExcel(excel,0,1,Master.class);
+        ImportParams importParams = new ImportParams();
+
+        List<Master> masterList = ExcelImportUtil.importExcel(excel.getInputStream(),Master.class,importParams);
 
         for (Master master : masterList) {
             String masterId = UUID.randomUUID().toString().replace("-", "");
             master.setMasterId(masterId);
-            boolean flag = masterService.addMaster(master);
-            if(!flag)
-                return "error";
         }
+
+        boolean flag = masterService.addExcel(masterList);
+
+        if(!flag)
+            return "error";
 
         return "success";
 
     }
 
+    @RequestMapping("/exportExcel")
+    public void exportExcel(HttpServletResponse response) throws IOException {
+
+        List<Master> masters = masterService.queryAll();
+
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("hx", "上师信息表"),Master.class,masters);
+
+        ServletOutputStream out = response.getOutputStream();
+
+        String fileName = new String("上师信息.xls".getBytes(), "iso-8859-1");
+
+        response.setContentType("application/vnd.ms-excel");
+
+        response.setHeader("content-disposition","attachment;fileName="+fileName);
+
+        workbook.write(out);
+
+        out.close();
+
+    }
 
 }

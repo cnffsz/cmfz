@@ -12,9 +12,13 @@ public interface MasterDao {
 
     public int insertMaster(Master master);
 
+    public int insertExcel(List<Master> list);
+
     public int updateMaster(Master master);
 
     public List<Master> selectByPage(@Param("index")Integer index,@Param("pageSize")Integer pageSize);
+
+    public List<Master> selectAll();
 
     public List<Master> selectByKey(@Param("key")String key ,@Param("index")Integer index ,@Param("pageSize")Integer pageSize);
 
