@@ -91,6 +91,8 @@ public class MasterController {
         List<Master> masterList = FileUtil.importExcel(excel,0,1,Master.class);
 
         for (Master master : masterList) {
+            String masterId = UUID.randomUUID().toString().replace("-", "");
+            master.setMasterId(masterId);
             boolean flag = masterService.addMaster(master);
             if(!flag)
                 return "error";
