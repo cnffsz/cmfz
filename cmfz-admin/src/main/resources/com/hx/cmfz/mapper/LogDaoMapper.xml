@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.hx.cmfz.dao.LogDao">
+
+    <select id="selectAllLog" resultType="Log">
+        select * from log limit #{index},#{pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from log
+    </select>
+
+    <insert id="insertLog">
+        insert into log values(#{id},#{user},#{time},#{resource},#{action},#{message},#{result})
+    </insert>
+
+</mapper>

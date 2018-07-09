@@ -40,7 +40,7 @@ public class ManagerController {
                     response.addCookie(c2);
                 }
                 session.setAttribute("manager",m);
-                return "main";
+                return "main/main";
             }
         }
         return "login";
