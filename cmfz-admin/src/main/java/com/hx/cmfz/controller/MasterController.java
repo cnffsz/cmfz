@@ -133,4 +133,11 @@ public class MasterController {
 
     }
 
+    @RequestMapping("/showAll")
+    @ResponseBody
+    public List<Master> showAll(HttpServletResponse response) throws IOException {
+
+        return masterService.queryAll();
+    }
+
 }

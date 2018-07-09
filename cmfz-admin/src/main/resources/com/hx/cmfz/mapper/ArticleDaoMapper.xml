@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.hx.cmfz.dao.ArticleDao">
+    <resultMap id="articleMap" type="Article">
+        <id property="articleId" column="article_id"/>
+        <result property="masterId" column="master_id"/>
+        <result property="articleName" column="article_name"/>
+        <result property="introduction" column="introduction"/>
+        <result property="articleDate" column="article_date"/>
+        <result property="articleStatus" column="article_status"/>
+        <result property="articleAuthor" column="article_author"/>
+    </resultMap>
+
+    <select id="selectArticle" resultMap="articleMap">
+        select article_id,master_id,article_name,introduction,article_date,article_status,article_author
+        from article
+        limit #{begin},#{showSize}
+    </select>
+
+    <select id="countArticle" resultType="int">
+        select count(*) from article
+    </select>
+
+    <insert id="insertArticle">
+        insert into article(article_id,master_id,article_name,introduction,article_date,article_status,article_author)
+        values(#{articleId},#{masterId},#{articleName},#{introduction},#{articleDate},#{articleStatus},#{articleAuthor})
+    </insert>
+
+</mapper>

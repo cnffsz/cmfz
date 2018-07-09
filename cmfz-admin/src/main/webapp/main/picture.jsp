@@ -45,7 +45,7 @@
                 width:400,
                 align:'center',
                 formatter: function (value, row, index) {
-                    return '<a class="easyui-linkbutton" data-options="iconCls:\'icon-edit\',plain:true" onclick="updatePic()">修改</a>';
+                    return '<a name="picA" class="easyui-linkbutton" data-options="iconCls:\'icon-edit\',plain:true" onclick="updatePic()">修改</a>';
                 }
             } ] ],
             height:668,
@@ -56,7 +56,7 @@
             singleSelect:true,
             toolbar: "#tool_pic",
             onLoadSuccess:function (data) {
-                $.parser.parse();
+                $("a[name='picA']").linkbutton({});
             },
             remoteSort:false,
             nowrap:false,

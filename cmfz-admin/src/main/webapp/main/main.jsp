@@ -11,6 +11,7 @@
 <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../js/datagrid-detailview.js"></script>
 <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="../js/wangEditor.min.js"></script>
 <script type="text/javascript">
     $(function() {
         $.ajax({
@@ -40,11 +41,11 @@
                                 var pp = $('#aa').accordion('getSelected');
                                 pp.empty();
                                 $.each(data2, function(index, value) {
-                                    pp.css("text-align","center").append('<a class="easyui-linkbutton" data-options="iconCls:\''+data2[index].menuIcon+'\',plain:true" onclick="addTab(\''+data2[index].menuName+'\',\''+data2[index].menuUrl+'\')" >'+data2[index].menuName+'</a><br/>');
+                                    pp.css("text-align","center").append('<a name="aA" class="easyui-linkbutton" data-options="iconCls:\''+data2[index].menuIcon+'\',plain:true" onclick="addTab(\''+data2[index].menuName+'\',\''+data2[index].menuUrl+'\')" >'+data2[index].menuName+'</a><br/>');
                                 });
                             }
                         });
-                        $.parser.parse();
+                        $("a[name='aA']").linkbutton({});
 					}
                 });
             }
