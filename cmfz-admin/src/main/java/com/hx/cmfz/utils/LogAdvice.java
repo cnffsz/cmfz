@@ -33,7 +33,7 @@ public class LogAdvice {
     @Around("pc()")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
 
-        Object obj = pjp.proceed();
+        Object obj = null;
 
         String logId = UUID.randomUUID().toString().replace("-", "");
 
@@ -59,22 +59,31 @@ public class LogAdvice {
             message.append(arg+";");
         }
 
-        String result = null;
-        if((boolean)obj)
+        String result = "fail";
+
+        try {
+
+            obj = pjp.proceed();
+
             result = "success";
-        else
-            result = "fail";
 
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        }catch (Throwable throwable) {
 
-        LogService logService = (LogService) applicationContext.getBean("logServiceImpl");
+            throwable.printStackTrace();
 
-        Log log = new Log(logId, username, new Date(), resource, action, message.toString(), result);
-        System.out.println(log);
+        }finally {
 
-        logService.logAdd(log);
+            ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        return obj;
+            LogService logService = (LogService) applicationContext.getBean("logServiceImpl");
+
+            Log log = new Log(logId, username, new Date(), resource, action, message.toString(), result);
+
+            logService.logAdd(log);
+
+            return obj;
+
+        }
 
     }
 

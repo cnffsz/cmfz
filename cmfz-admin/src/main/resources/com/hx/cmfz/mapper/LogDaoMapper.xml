@@ -3,7 +3,7 @@
 <mapper namespace="com.hx.cmfz.dao.LogDao">
 
     <select id="selectAllLog" resultType="Log">
-        select * from log limit #{index},#{pageSize}
+        select * from log order by time desc limit #{index},#{pageSize}
     </select>
 
     <select id="count" resultType="java.lang.Integer">
