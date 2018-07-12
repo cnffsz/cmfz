@@ -7,17 +7,17 @@ import java.io.Serializable;
  */
 public class Manager implements Serializable{
 
-    private String mgrId;
+    private Integer mgrId;
     private String mgrName;
     private String mgrPwd;
     private String salt;
     private String mgrStatus;
 
-    public String getMgrId() {
+    public Integer getMgrId() {
         return mgrId;
     }
 
-    public void setMgrId(String mgrId) {
+    public void setMgrId(Integer mgrId) {
         this.mgrId = mgrId;
     }
 
@@ -56,7 +56,7 @@ public class Manager implements Serializable{
     public Manager() {
     }
 
-    public Manager(String mgrId, String mgrName, String mgrPwd, String salt, String mgrStatus) {
+    public Manager(Integer mgrId, String mgrName, String mgrPwd, String salt, String mgrStatus) {
         this.mgrId = mgrId;
         this.mgrName = mgrName;
         this.mgrPwd = mgrPwd;

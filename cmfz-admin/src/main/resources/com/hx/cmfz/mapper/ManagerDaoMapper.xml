@@ -14,4 +14,19 @@
         select * from manager where mgr_name = #{name}
     </select>
 
+    <select id="selectRoleByMgrName" resultType="SysRole">
+        SELECT id id,role_name roleName,role_tag  roleTag FROM sys_role WHERE id IN (
+            SELECT role_id FROM sys_mgr_role WHERE mgr_id = ( select mgr_id from manager where mgr_name = #{name} )
+        )
+    </select>
+
+    <select id="selectPermisssionByMgrName" resultType="SysPermission">
+        SELECT id id,resource_name resourceName,resource_tag  resourceTag,resource_url  resourceUrl,permission_tag permissionTag
+        FROM sys_permission WHERE id IN (
+            SELECT permission_id FROM sys_role_permission WHERE role_id IN (
+                SELECT role_id FROM sys_mgr_role WHERE mgr_id = ( select mgr_id from manager where mgr_name = #{name} )
+            )
+        )
+    </select>
+
 </mapper>

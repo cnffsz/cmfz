@@ -19,7 +19,7 @@ public class cmfzTest {
         ManagerDao managerDao = (ManagerDao) applicationContext.getBean("managerDao");
         System.out.println(managerDao.selectMgr("hx"));
         ManagerService managerService = (ManagerService) applicationContext.getBean("managerServiceImpl");
-        System.out.println(managerService.queryMgr("hx","123123")+" service");
+        System.out.println(managerService.queryMgr("hx")+" service");
     }
     
     @Test

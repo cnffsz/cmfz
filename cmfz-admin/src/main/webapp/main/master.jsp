@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" isELIgnored="false" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <script type="text/javascript">
     $(function() {
         $("#datagrid_master").datagrid({
@@ -237,8 +238,12 @@
 <div id="tool_master">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新增上师'" onclick="addMaster()"></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true,text:'帮助'"></a>
+    <shiro:hasRole name="root">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-page_add',plain:true,text:'批量添加'" onclick="addExcel()"></a>
+    </shiro:hasRole>
+    <shiro:hasPermission name="master:export">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-download',plain:true,text:'批量导出'" href="${pageContext.request.contextPath}/exportExcel.do"></a>
+    </shiro:hasPermission>
     <input id="ss"/>
 </div>
 
