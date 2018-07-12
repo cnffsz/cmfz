@@ -26,15 +26,15 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public Manager queryMgr(String name, String password) {
 
-        Manager manager = managerDao.selectMgr(name);
+        return managerDao.selectMgr(name);
 
-        if(manager != null){
+        /*if(manager != null){
             String newPwd = DigestUtils.md5Hex(password+manager.getSalt());
             if(manager.getMgrPwd().equals(newPwd))
                 return manager;
         }
 
-        return null;
+        return null;*/
 
     }
 }
