@@ -41,7 +41,7 @@ public class LogAdvice {
 
         HttpSession session =request.getSession();
 
-        String username = ((Manager)session.getAttribute("manager")).getMgrName();
+        String username = (String) session.getAttribute("managerName");
 
         MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
 

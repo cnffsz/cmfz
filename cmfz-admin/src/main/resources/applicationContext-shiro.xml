@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -22,16 +22,16 @@
             </list>
         </property>
         <property name="rememberMeManager" ref="rememberMeManager"></property>
-        <property name="cacheManager" ref="ehCacheManager"></property>
+        <property name="cacheManager" ref="shiroCacheManager"></property>
     </bean>
 
     <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
         <property name="cookie" ref="simpleCookie"></property>
     </bean>
 
-    <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+    <!--<bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
         <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
-    </bean>
+    </bean>-->
 
     <bean id="simpleCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <property name="name" value="rm"></property>
@@ -47,5 +47,18 @@
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
         <property name="hashAlgorithmName" value="md5"></property>
         <property name="hashIterations" value="1024"></property>
+    </bean>
+
+    <!-- MyBatis使用ehcache缓存 start -->
+    <bean id="ehCacheManager"
+          class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:ehcache.xml" />
+        <property name="shared" value="true"></property> <!-- 这里是关键！！！没有必错  -->
+    </bean>
+    <!-- end MyBatis使用ehcache缓存 -->
+
+    <!-- 缓存管理器 使用Ehcache实现 -->
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="ehCacheManager" />
     </bean>
 </beans>

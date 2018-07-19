@@ -10,7 +10,7 @@
                 width:500,
                 align:'center'
             }, {
-                title : "文件名",
+                title : "轮播图路径",
                 field : "picturePath",
                 width:400,
                 align:'center'
@@ -63,7 +63,7 @@
             view: detailview,
             detailFormatter: function(rowIndex, rowData){
                 return '<table><tr>' +
-                    '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}/upload/' + rowData.picturePath + '" style="height:200px;"></td>' +
+                    '<td rowspan=2 style="border:0"><img src="http://192.168.73.128:8888/' + rowData.picturePath + '" style="height:200px;"></td>' +
                     '<td style="border:0">' +
                     '</td>' +
                     '</tr></table>';

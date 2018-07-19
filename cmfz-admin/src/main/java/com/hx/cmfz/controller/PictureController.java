@@ -2,6 +2,11 @@ package com.hx.cmfz.controller;
 
 import com.hx.cmfz.entity.Picture;
 import com.hx.cmfz.service.PictureService;
+import org.csource.common.MyException;
+import org.csource.fastdfs.ClientGlobal;
+import org.csource.fastdfs.StorageClient;
+import org.csource.fastdfs.TrackerClient;
+import org.csource.fastdfs.TrackerServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.ParseException;
@@ -38,30 +44,38 @@ public class PictureController {
 
     @RequestMapping("/addPicture")
     @ResponseBody
-    public String addPicture(String pictureDescription, Integer pictureStatus, MultipartFile picturePath, HttpSession session) throws IOException {
+    public String addPicture(String pictureDescription, Integer pictureStatus, MultipartFile picturePath, HttpSession session) throws IOException, MyException {
 
         String pictureId = UUID.randomUUID().toString().replace("-", "");
 
         String picName = picturePath.getOriginalFilename();
 
-        String realPath=session.getServletContext().getRealPath("/").replace("cmfz-admin","upload");
+//        String realPath=session.getServletContext().getRealPath("/").replace("cmfz-admin","upload");
+//
+//        session.setAttribute("realPath", URLEncoder.encode(realPath,"utf-8"));
+//
+//        File file = new File(realPath);
+//
+//        if(!file.exists()){
+//            file.mkdirs();
+//        }
 
-        session.setAttribute("realPath", URLEncoder.encode(realPath,"utf-8"));
+//        picturePath.transferTo(file);
 
-        File file = new File(realPath, picName);
+        ClientGlobal.init("fdfs_client.conf");
+        TrackerClient trackerClient = new TrackerClient();
+        TrackerServer trackerServer = trackerClient.getConnection();
+        StorageClient client = new StorageClient(trackerServer, null);
 
-        if(!file.exists()){
-            file.mkdirs();
-        }
+        String[] fileId = client.upload_file(picturePath.getBytes(), picName.substring(picName.lastIndexOf(".") + 1), null);
 
-        picturePath.transferTo(file);
-
-        Picture picture = new Picture(pictureId, picName,new Date(), pictureDescription, pictureStatus);
+        Picture picture = new Picture(pictureId, fileId[0]+"/"+fileId[1],new Date(), pictureDescription, pictureStatus);
 
         boolean flag = pictureService.addPic(picture);
 
-        if(flag)
+        if(flag){
             return "success";
+        }
 
         return "error";
     }

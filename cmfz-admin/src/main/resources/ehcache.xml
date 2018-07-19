@@ -1,11 +1,5 @@
-
 <ehcache>
-
-
     <diskStore path="java.io.tmpdir/shiro-ehcache"/>
-
-
-
     <defaultCache
             maxElementsInMemory="10000"
             eternal="false"
@@ -15,8 +9,6 @@
             diskPersistent="false"
             diskExpiryThreadIntervalSeconds="120"
     />
-
-
 </ehcache>
 
 
